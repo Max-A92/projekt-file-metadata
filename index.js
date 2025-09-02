@@ -7,11 +7,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors({optionsSuccessStatus: 200}));
-app.use('/public', express.static(process.cwd() + '/public'));
-
-app.get('/', function(req, res) {
-  res.sendFile(process.cwd() + '/public/index.html');
-});
+app.use(express.static(process.cwd() + '/public'));
 
 const upload = multer({
   storage: multer.memoryStorage(),
