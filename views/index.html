@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Project: File Metadata Microservice</title>
+    <link rel="shortcut icon" href="https://cdn.freecodecamp.org/universal/favicons/favicon-32x32.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            color: #222;
+            background-color: #FaFaFa;
+            text-align: center;
+            line-height: 1.4em;
+            margin: 20px;
+        }
+
+        .container {
+            padding: 0;
+            margin-top: 40px;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 0.8em;
+            line-height: 1.2;
+        }
+
+        h3 {
+            font-size: 1.1em;
+            font-weight: normal;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .main {
+            padding: 10px;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .file-upload-section {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 500px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .upload-form {
+            margin: 20px 0;
+        }
+
+        .file-input {
+            padding: 12px;
+            border: 2px solid #007acc;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 16px;
+            width: 300px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .file-input:focus {
+            outline: none;
+            border-color: #005999;
+            box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+        }
+
+        .upload-button {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+
+        .upload-button:hover {
+            background: #005999;
+        }
+
+        .info-section {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .info-section h4 {
+            color: #007acc;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .info-section p {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .endpoint {
+            background: #e9ecef;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .json-example {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            text-align: left;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .footer a {
+            color: #007acc;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .main {
+                padding: 5px;
+            }
+            
+            .file-upload-section, .info-section {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .file-input {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+            <h1>API Project: File Metadata Microservice</h1>
+            <h3>Upload a file and get back its metadata!</h3>
+            
+            <!-- File Upload Section -->
+            <div class="file-upload-section">
+                <h4>File Upload</h4>
+                <form action="/api/fileanalyse" method="post" enctype="multipart/form-data" class="upload-form">
+                    <input type="file" name="upfile" class="file-input" required>
+                    <br><br>
+                    <button type="submit" class="upload-button">Upload File</button>
+                </form>
+            </div>
+
+            <!-- API Documentation -->
+            <div class="info-section">
+                <h4>API Information</h4>
+                <p><strong>Endpoint:</strong> <span class="endpoint">POST /api/fileanalyse</span></p>
+                <p><strong>Method:</strong> Upload any file using the form above</p>
+                <p><strong>Returns:</strong> JSON object with file metadata</p>
+                
+                <h4>Example Response</h4>
+                <div class="json-example">{
+  "name": "example.pdf",
+  "type": "application/pdf", 
+  "size": 1024567
+}</div>
+
+                <p><strong>Response Fields:</strong></p>
+                <p>• <code>name</code>: Original filename</p>
+                <p>• <code>type</code>: MIME type of the file</p>
+                <p>• <code>size</code>: File size in bytes</p>
+            </div>
+
+            <!-- Usage Instructions -->
+            <div class="info-section">
+                <h4>Usage Instructions</h4>
+                <p>1. Click "Choose File" to select any file from your computer</p>
+                <p>2. Click "Upload File" to submit the file</p>
+                <p>3. View the JSON response with file metadata</p>
+                <p><strong>Note:</strong> Files are not stored on the server - only metadata is analyzed and returned.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>by <a href="https://freecodecamp.org" target="_blank">freeCodeCamp</a></p>
+        </div>
+    </div>
+</body>
+</html>
