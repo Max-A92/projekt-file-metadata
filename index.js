@@ -1,16 +1,16 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(cors({optionsSuccessStatus: 200}));
-app.use(express.static(process.cwd() + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
-  res.sendFile(process.cwd() + '/public/index.html');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const upload = multer({
@@ -32,6 +32,11 @@ app.post('/api/fileanalyse', upload.single('upfile'), function(req, res) {
   });
 });
 
-const listener = app.listen(port, function() {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
+if (process.env.NODE_ENV !== 'production') {
+  const port = process.env.PORT || 3000;
+  app.listen(port, function() {
+    console.log('Your app is listening on port ' + port);
+  });
+}
+
+module.exports = app;
